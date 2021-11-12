@@ -6,10 +6,13 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // webpack 中的配置都有默认值，从而实现了开箱即用，零配置的特点
 
 module.exports = {
-  mode: 'none',
-  entry: './src/main.js',
+  mode: 'development',
+  entry: {
+    bundle1: './src/main.ts',
+    bundle2: './src/main1.ts'
+  },
   output: {
-    filename: 'bundle.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, './dist')
   },
   module: {
@@ -21,6 +24,20 @@ module.exports = {
           MiniCssExtractPlugin.loader,
           'css-loader'
         ]
+      },
+      {
+        test: /\.m?js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        } 
+      },
+      {
+        test: /\.ts$/,
+        use: ['ts-loader']
       }
     ]
   },
@@ -39,7 +56,7 @@ module.exports = {
     // 解析目录时要使用的文件名，省略文件名
     mainFiles: ['index'],
     // 解析未带后缀的文件时的默认顺序
-    extensions: ['.js'],
+    extensions: ['.ts', '.js'],
     //  配置 webpack 去哪些目录下找第三方包
     modules: ['node_modules'],
   },
