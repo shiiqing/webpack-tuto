@@ -4,6 +4,8 @@ const path = require("path");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+// const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 // webpack 中的配置都有默认值，从而实现了开箱即用，零配置的特点
 
@@ -25,18 +27,32 @@ module.exports = {
         use: [
           // 'style-loader',
           MiniCssExtractPlugin.loader,
-          'css-loader'
+          'css-loader',
+          /**
+           * css 兼容性处理: post --> postcss-loader postcss-preset-env
+           */
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              plugins: () => [
+                // postcss 的插件
+                require('postcss-preset-env')()
+              ]
+            }
+          }
         ]
       },
       {
         test: /\.m?js$/,
         exclude: /node_modules/,
         use: {
+          // you forgot to set the `loader` property
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env']
-          }
-        } 
+            presets: ['@babel/preset-env'],
+          },
+        },
       },
       // {
       //   test: /\.ts$/,
@@ -46,15 +62,22 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: `[name].css`
+      filename: `main.css`
     }),
     new HtmlWebpackPlugin({
       title: 'my app',
       template: './public/index.html',
       output: 'css',
-      favicon: path.resolve(__dirname, 'public', 'favicon.ico')
+      favicon: path.resolve(__dirname, 'public', 'favicon.ico'),
+      minify: {
+        collapseWhitespace: true,
+        removeComments: true
+      }
     }),
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
+    // new BundleAnalyzerPlugin()
+    // 压缩 css 代码
+    // new OptimizeCssAssetsWebpackPlugin()
   ],
   resolve: {
     alias: {
@@ -85,5 +108,6 @@ module.exports = {
   // 是否生产source-map
   devtool: 'source-map',
   // 目标对象
-  target: 'web',
+  target: ['web', 'es5'],
+  // target: 'web',
 };

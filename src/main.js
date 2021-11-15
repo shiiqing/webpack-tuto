@@ -1,35 +1,23 @@
-require('./assets/main.css');
-const show = require('./utils/index');
-const $ = require('jquery');
-// const show = require('utils');
-show('webpack');
-$('#app').html("<h1>this is my time</h1>")
-// // const promise = new Promise((resolve, reject) => {
-// //   setTimeout(() => {
-// //     resolve();
-// //   }, 1000);
-// //   reject();
-// // })
+// require('./assets/main.css');
+// var show = require('./utils/index');
+// var $ = require('jquery');
+// // const show = require('utils');
+// show('webpack');
+// $('#app').html("<h1>this is my time</h1>")
 
-// // promise.then(value => {
-// //   console.log('cccccccccc')
-// // })
-// // class Man {
-// //   constructor(name) {
-// //     this.name = '小豪';
-// //   }
-// //   console() {
-// //     console.log(this.name);
-// //   }
-// // }
-// // const man = new Man('小豪');
-// // man.console(); // 小豪
+const app = 'hello world';
 
-// // const arr = [1, 2, [3, 4]].flat(Infinity); // [1, 2, 3, 4]
-// // console.log(arr);
+const foo = () => {
+  console.log('dfdfd');
+}
 
-// function a(num: number) {
-//   return num + 1;
-// }
+console.log(app);
 
-// console.log('hello world');
+const promise = new Promise((resolve) => {
+  setTimeout(() => {
+    console.log('hello worlds');
+    resolve();
+  }, 1000);
+})
+
+console.log(promise);
