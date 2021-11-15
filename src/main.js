@@ -1,23 +1,23 @@
-// require('./assets/main.css');
-// var show = require('./utils/index');
+require('./assets/main.css');
+var show = require('./utils/index');
 // var $ = require('jquery');
 // // const show = require('utils');
-// show('webpack');
+show('webpack');
 // $('#app').html("<h1>this is my time</h1>")
 
-const app = 'hello world';
+// const app = 'hello world';
 
-const foo = () => {
-  console.log('dfdfd');
-}
+// const foo = () => {
+//   console.log('this is a time to code more');
+// }
 
-console.log(app);
+// console.log(app);
 
-const promise = new Promise((resolve) => {
-  setTimeout(() => {
-    console.log('hello worlds');
-    resolve();
-  }, 1000);
-})
+// const promise = new Promise((resolve) => {
+//   setTimeout(() => {
+//     console.log('hello world');
+//     resolve();
+//   }, 1000);
+// })
 
-console.log(promise);
+// console.log(promise);

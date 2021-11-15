@@ -31,16 +31,16 @@ module.exports = {
           /**
            * css 兼容性处理: post --> postcss-loader postcss-preset-env
            */
-          {
-            loader: 'postcss-loader',
-            options: {
-              ident: 'postcss',
-              plugins: () => [
-                // postcss 的插件
-                require('postcss-preset-env')()
-              ]
-            }
-          }
+          // {
+          //   loader: 'postcss-loader',
+          //   options: {
+          //     ident: 'postcss',
+          //     plugins: () => [
+          //       // postcss 的插件
+          //       require('postcss-preset-env')()
+          //     ]
+          //   }
+          // }
         ]
       },
       {
@@ -101,12 +101,16 @@ module.exports = {
     //  是否开启g-zip 压缩模式
     compress: true,
     //  服务监听地址
-    host: '0.0.0.0',
     //  服务器 端口号
-    port: 8089
+    port: 8089,
+    // 启用热模块更新
+    hot: true,
+    open: true
   },
   // 是否生产source-map
-  devtool: 'source-map',
+  // 内联 source-map
+  // devtool: 'inline-source-map',
+  devtool: 'hidden-source-map',
   // 目标对象
   target: ['web', 'es5'],
   // target: 'web',
