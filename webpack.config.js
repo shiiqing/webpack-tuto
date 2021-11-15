@@ -2,17 +2,20 @@ const path = require("path");
 // extract-text-webpack-plugin 已弃用
 // const ExtractTextPlugin = require('extract-text-webpack-plugin'); 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 // webpack 中的配置都有默认值，从而实现了开箱即用，零配置的特点
 
 module.exports = {
   mode: 'development',
-  entry: {
-    bundle1: './src/main.ts',
-    bundle2: './src/main1.ts'
-  },
+  // entry: {
+  //   bundle1: './src/main.ts',
+  //   bundle2: './src/main1.ts'
+  // },
+  entry: './src/main.js',
   output: {
-    filename: '[name].js',
+    filename: 'bundle.js',
     path: path.resolve(__dirname, './dist')
   },
   module: {
@@ -35,16 +38,23 @@ module.exports = {
           }
         } 
       },
-      {
-        test: /\.ts$/,
-        use: ['ts-loader']
-      }
+      // {
+      //   test: /\.ts$/,
+      //   use: ['ts-loader']
+      // }
     ]
   },
   plugins: [
     new MiniCssExtractPlugin({
       filename: `[name].css`
-    })
+    }),
+    new HtmlWebpackPlugin({
+      title: 'my app',
+      template: './public/index.html',
+      output: 'css',
+      favicon: path.resolve(__dirname, 'public', 'favicon.ico')
+    }),
+    new CleanWebpackPlugin()
   ],
   resolve: {
     alias: {
@@ -59,6 +69,9 @@ module.exports = {
     extensions: ['.ts', '.js'],
     //  配置 webpack 去哪些目录下找第三方包
     modules: ['node_modules'],
+  },
+  externals: {
+    jquery: 'jQuery'
   },
   //  只用通过 DevServer 启动webpack 此配置才会奏效
   devServer: {
